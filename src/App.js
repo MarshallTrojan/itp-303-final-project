@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Header from './components/Header';
 import StockMarket from './components/StockMarket'
@@ -6,6 +6,7 @@ import Search from './components/Search';
 import {Switch, Route} from 'react-router-dom'
 import Signin from './components/Signin';
 import UserDashboard from './components/UserDashboard';
+import HeaderLogIn from './components/HeaderLogIn';
 
 const styles = {
   root: {
@@ -16,11 +17,15 @@ const styles = {
 }
 
 const App = (props) => {
+  const [header, setHeader] = useState(false);
   const classes = props.classes;
+  const signInSuccess = (val) => {
+    setHeader(val)
+  }
   return (
     <div className={classes.root}>
       <header>
-        <Header />
+        {header === true ? <HeaderLogIn success={signInSuccess} /> : <Header />}
       </header>
       <main>
         <Switch>
@@ -30,7 +35,11 @@ const App = (props) => {
               <Search watchList={false} signIn={false}/>
             </div>
           } />
-          <Route path='/signin' component={Signin} />
+          <Route path='/signin' render={props => 
+            <div>
+              <Signin success={signInSuccess} />
+            </div>
+          } />
           <Route path='/signup' component={Signin} />
           <Route path='/dashboard' component={UserDashboard} />
         </Switch>

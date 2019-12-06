@@ -72,7 +72,6 @@ class StockMarket extends React.Component {
                 return results.json()
             })
             .then(res => {
-                console.log(res)
                 this.setState({data: res.mostGainerStock})
             })
         } else {

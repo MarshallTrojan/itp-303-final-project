@@ -21,7 +21,7 @@ const styles = {
     }
 };
 
-const Header = (props) => {
+const HeaderLogIn = (props) => {
     const classes = props.classes;
     return (
         <Grid container spacing={3}>
@@ -30,14 +30,14 @@ const Header = (props) => {
             </Grid>
             <Grid item xs={2}>
                 <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                        <Button fullWidth color="primary" variant="contained" className={classes.button} onClick={() => history.push('/signin')}>
-                            SignIn
-                        </Button>
+                    <Grid item xs={4}>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Button fullWidth color="primary" variant="contained" className={classes.button} onClick={() => history.push('/signup')}>
-                            SignUp
+                    <Grid item xs={8}>
+                        <Button fullWidth color="primary" variant="contained" className={classes.button} onClick={() => {
+                            props.success(false);
+                            history.push('/')
+                        }}>
+                            Sign Out
                         </Button>
                     </Grid>
                 </Grid>
@@ -46,4 +46,4 @@ const Header = (props) => {
     )
 };
 
-export default withStyles(styles)(Header);
+export default withStyles(styles)(HeaderLogIn);

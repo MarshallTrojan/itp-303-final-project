@@ -84,7 +84,6 @@ class Search extends React.Component {
                 }
             }
         );
-        console.log(actions);
         return (
             <div className={classes.root}>
                 <MaterialTable
