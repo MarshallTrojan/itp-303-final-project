@@ -2,6 +2,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 import MaterialTable from 'material-table';
 import { Modal, Backdrop, Fade, Paper } from '@material-ui/core';
 import Linechart from './Linechart';
@@ -37,14 +38,26 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        this.props.watchList === false && fetch('https://financialmodelingprep.com/api/v3/company/stock/list')
+        fetch('https://financialmodelingprep.com/api/v3/company/stock/list')
             .then(results => {
                 return results.json();
             })
             .then(res => {
-                this.setState({data: res.symbolsList});
+                if(this.props.stocks && this.props.stocks.length !== 0) {
+                    let arr = [];
+                    this.props.stocks.forEach(el => {
+                        const temp = res.symbolsList.filter(el2 => {
+                            return el2.symbol === el.name;
+                        });
+                        arr.push(temp[0]);
+                    });
+                    this.setState({data: arr});
+                } else if(this.props.watchList === false) {
+                    this.setState({data: res.symbolsList});
+                }
             })
     }
+    
 
     handleModalClose = () => {
         this.setState({modalOpen: false});
@@ -75,15 +88,62 @@ class Search extends React.Component {
               }
             }
         ];
-        this.props.signIn === true && actions.push(
+        (this.props.signIn === true && this.props.userid === undefined) && actions.push(
             {
                 icon: () => <AddIcon />,
                 tooltip: 'Add Stock',
                 onClick: (event, rowData) => {
-
+                    console.log(rowData);
+                    console.log(typeof(sessionStorage.getItem("id")));
+                    fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/stocks/add.php', {
+                        method: 'post',
+                        headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify({
+                            "name": rowData.symbol,
+                            "userid": sessionStorage.getItem("id")
+                        })
+                    })
+                        .then(results => {
+                            return results.json()
+                        })
+                        .then(res => {
+                            console.log(res[0]);
+                            if (res[0].succeed) {
+                                alert("added")
+                            } else {
+                                alert("There's something wrong, Please check back later!");
+                            }
+                        })
                 }
             }
         );
+        this.props.delete && actions.push({
+            icon: () => <DeleteIcon />,
+            tooltip: 'Delete Stock',
+            onClick: (event, rowData) => {
+                console.log(rowData);
+                console.log(typeof(sessionStorage.getItem("id")));
+                fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/stocks/delete.php', {
+                    method: 'post',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        "name": rowData.symbol,
+                        "userid": sessionStorage.getItem("id")
+                    })
+                })
+                    .then(results => {
+                        return results.json()
+                    })
+                    .then(res => {
+                        console.log(res[0]);
+                        if (res[0].succeed) {
+                            alert("Deleted")
+                        } else {
+                            alert("There's something wrong, Please check back later!");
+                        }
+                    })
+                }
+        })
         return (
             <div className={classes.root}>
                 <MaterialTable

@@ -34,7 +34,7 @@ const HeaderLogIn = (props) => {
                     </Grid>
                     <Grid item xs={8}>
                         <Button fullWidth color="primary" variant="contained" className={classes.button} onClick={() => {
-                            props.success(false);
+                            //props.success(false);
                             history.push('/')
                         }}>
                             Sign Out

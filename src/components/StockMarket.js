@@ -128,7 +128,26 @@ class StockMarket extends React.Component {
                 icon: () => <AddIcon />,
                 tooltip: 'Add Stock',
                 onClick: (event, rowData) => {
-
+                    console.log(rowData);
+                    fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/stocks/add.php', {
+                        method: 'post',
+                        headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify({
+                            "name": rowData.ticker,
+                            "userid": sessionStorage.getItem("id")
+                        })
+                    })
+                        .then(results => {
+                            return results.json()
+                        })
+                        .then(res => {
+                            console.log(res[0]);
+                            if (res[0].succeed) {
+                                alert("added")
+                            } else {
+                                alert("There's something wrong, Please check back later!");
+                            }
+                        })
                 }
             }
         );
