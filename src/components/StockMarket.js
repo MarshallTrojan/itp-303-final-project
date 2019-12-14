@@ -129,7 +129,7 @@ class StockMarket extends React.Component {
                 tooltip: 'Add Stock',
                 onClick: (event, rowData) => {
                     console.log(rowData);
-                    fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/stocks/add.php', {
+                    fetch('https://303.itpwebdev.com/~pbauman/finalproject/api/stocks/add.php', {
                         method: 'post',
                         headers: {'Content-Type':'application/json'},
                         body: JSON.stringify({

@@ -16,7 +16,7 @@ class UserDashboard extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://303.itpwebdev.com/~pbauman/finalproject/api/stocks/read.php?id=${sessionStorage.getItem("id")}`)
+        fetch(`https://303.itpwebdev.com/~pbauman/finalproject/api/stocks/read.php?id=${sessionStorage.getItem("id")}`)
         .then(results => {
             return results.json()
         })

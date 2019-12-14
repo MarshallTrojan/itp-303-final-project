@@ -32,7 +32,7 @@ const SignIn = (props) => {
         if (name === "" || password === "") {
             alert("please enter username and password");
         } else {
-            fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/user/read.php', {
+            fetch('https://303.itpwebdev.com/~pbauman/finalproject/api/user/read.php', {
                 method: 'post',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({
@@ -65,7 +65,7 @@ const SignIn = (props) => {
         } else if (password !== passwordAgain) {
             alert("Passwords not match! Please try again.");
         } else {
-            fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/user/register.php', {
+            fetch('https://303.itpwebdev.com/~pbauman/finalproject/api/user/register.php', {
                 method: 'post',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({

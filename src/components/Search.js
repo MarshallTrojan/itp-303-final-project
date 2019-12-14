@@ -95,7 +95,7 @@ class Search extends React.Component {
                 onClick: (event, rowData) => {
                     console.log(rowData);
                     console.log(typeof(sessionStorage.getItem("id")));
-                    fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/stocks/add.php', {
+                    fetch('https://303.itpwebdev.com/~pbauman/finalproject/api/stocks/add.php', {
                         method: 'post',
                         headers: {'Content-Type':'application/json'},
                         body: JSON.stringify({
@@ -123,7 +123,7 @@ class Search extends React.Component {
             onClick: (event, rowData) => {
                 console.log(rowData);
                 console.log(typeof(sessionStorage.getItem("id")));
-                fetch('http://303.itpwebdev.com/~pbauman/finalproject/api/stocks/delete.php', {
+                fetch('https://303.itpwebdev.com/~pbauman/finalproject/api/stocks/delete.php', {
                     method: 'post',
                     headers: {'Content-Type':'application/json'},
                     body: JSON.stringify({
